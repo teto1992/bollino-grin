@@ -4,13 +4,15 @@ bollinoGRIN() :-
     insegnamentiOk(),
     informaticaOk(), areefondamentaliOk(), 
     matematicaOk(), 
-    anvur(si).
+    anvur(si), 
+    writeln('3) Il corso è accreditato presso l\'ANVUR'),
+    writeln('Il corso soddisfa i requisiti del bollino GRIN per la Laurea L-31').
 
 matematicaOk() :-
     matematiche(Maths), algebrageometria(AlgGeom), altrematematiche(AltreMat),
     findall(C, (ins(_,_,M,C,_), member(M, Maths)), Cs), sumlist(Cs, ToTCreditiMatematica),
     ToTCreditiMatematica >= 24,
-    writeln('Il corso ha almeno 24 CFU riferibili a MAT/01, 02, 03, 05, 06, 08, 09'),
+    writeln('2) Il corso ha almeno 24 CFU riferibili a MAT/01, 02, 03, 05, 06, 08, 09'),
     findall(C, ins(_,_,mat05,C,_), CsMat05), sumlist(CsMat05,Mat05),  Mat05 >= 6,
     writeln('\t - almeno 6 di questi CFU sono riferibili a MAT/05 (Analisi Matematica)'),
     findall(C, (ins(_,_,M,C,_), member(M, AlgGeom)), CsAlgGeom), sumlist(CsAlgGeom, ToTCreditiAlgGeom), ToTCreditiAlgGeom >= 6,
@@ -22,7 +24,7 @@ informaticaOk() :-
     findall(C, ins(_, _, inf01, C, _), C1), sumlist(C1,CreditiINF01),
     findall(C, ins(_, _, inginf05, C, _), C2), sumlist(C2, CreditiINGINF05),
     CreditiINF01 + CreditiINGINF05 >= 78,
-    writeln('Il corso ha almeno 78 CFU riferibili a INF/01 o ING-INF/05').
+    writeln('1) Il corso ha almeno 78 CFU riferibili a INF/01 o ING-INF/05').
 
 areefondamentaliOk() :-
     findall((I,S,CXA), (ins(I, _, _, _, _), creditiInAreaFondamentale(I, S, CXA)), CXAreaFondamentale),
